@@ -1,0 +1,343 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: #f8fafc;
+  padding-top: 100px;
+  padding-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* The Faded Image Background */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 75%;
+  background-image: url('../images/hero-classroom.png');
+  background-size: cover;
+  background-position: 65% center;
+  /* Fade out cleanly into the white background on the left */
+  -webkit-mask-image: linear-gradient(to right, transparent 30%, black 75%);
+  mask-image: linear-gradient(to right, transparent 30%, black 75%);
+  z-index: 0;
+}
+
+
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+/* Typography */
+.hero-content {
+  max-width: 100%;
+}
+
+.hero-content h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.orange-line {
+  width: 40px;
+  height: 2px;
+  background-color: var(--cta-orange);
+}
+
+.subtitle-text {
+  color: var(--cta-orange);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.hero-paragraph {
+  font-size: 1.15rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 90%;
+  margin-bottom: 24px;
+}
+
+/* Action Buttons */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-arrow,
+.btn-whatsapp {
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-arrow {
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(15, 28, 48, 0.15);
+}
+
+.btn-whatsapp {
+  background: white;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Visual Side (Badges only) */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  height: 460px;
+}
+
+/* Floating Badges */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+  50% { transform: translateY(-20px) rotate(1.5deg); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); }
+  100% { transform: translateY(0px) rotate(0deg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+}
+
+.float-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  animation: float 6s ease-in-out infinite;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.float-card .icon-box,
+.float-card .icon-outline {
+  flex: 0 0 auto;
+}
+
+.float-card .badge-content,
+.float-card .text-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-top {
+  top: 15%;
+  right: -5%;
+  padding: 16px 24px;
+  animation-delay: 0s;
+}
+
+.badge-top .icon-box {
+  width: 48px;
+  height: 48px;
+  background: var(--secondary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.badge-top .badge-content h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.badge-top .badge-content span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 0.05em;
+}
+
+.badge-bottom-left {
+  bottom: 20%;
+  left: -20%;
+  padding: 20px 24px;
+  animation-delay: 1.5s;
+}
+
+.badge-bottom-left .icon-outline {
+  color: var(--secondary);
+}
+
+.badge-bottom-left h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.badge-bottom-left span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* -------------------------------------
+   STATS PILL DESIGN
+------------------------------------- */
+.hero-stats-pill {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  padding: 16px 32px;
+  border-radius: 16px;
+  gap: 24px;
+  box-shadow: 0 10px 30px rgba(15, 28, 48, 0.05);
+  border: 1px solid rgba(255,255,255,0.6);
+  position: relative;
+  z-index: 3;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon.icon-teal {
+  background-color: rgba(32, 202, 182, 0.1);
+  color: var(--secondary);
+}
+
+.stat-icon.icon-blue {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.stat-icon.icon-cyan {
+  background-color: rgba(6, 182, 212, 0.1);
+  color: #06b6d4;
+}
+
+.stat-text h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.stat-text p {
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 600;
+  margin: 0;
+}
+
+.stat-divider {
+  width: 1px;
+  background-color: #e2e8f0;
+}
+
+/* -------------------------------------
+   RESPONSIVE
+------------------------------------- */
+@media (max-width: 1100px) {
+  .hero-stats-pill {
+    gap: 20px;
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero::before {
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.8) 60%);
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.8) 60%);
+  }
+
+  .hero-visual {
+    display: none;
+  }
+  
+  .hero-stats-pill {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 24px;
+  }
+  .stat-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-stats-pill {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-arrow,
+  .btn-whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+}

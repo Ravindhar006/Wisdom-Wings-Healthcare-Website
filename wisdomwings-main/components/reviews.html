@@ -1,0 +1,168 @@
+<!-- ========== REVIEWS SECTION ========== -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-header fade-up">
+      <div class="reviews-header-left">
+        <span class="section-subtitle">STUDENT REVIEWS</span>
+        <h2 class="section-title">What Our Students Say</h2>
+      </div>
+      <button class="write-review-btn" id="write-review-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        Write a Review
+      </button>
+    </div>
+
+    <!-- Review Carousel -->
+    <div class="reviews-slider-outer">
+      <button class="rv-arrow rv-prev" id="rv-prev" aria-label="Previous review">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div id="reviews-grid" class="reviews-carousel">
+        <!-- Skeleton placeholders -->
+        <div class="review-card skeleton-card">
+          <div style="display:flex; gap:12px; margin-bottom:16px;">
+            <div class="skeleton" style="width:40px;height:40px;border-radius:50%;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="width:60%;height:14px;margin-bottom:8px;"></div>
+              <div class="skeleton" style="width:40%;height:12px;"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="width:80px;height:12px;margin-bottom:16px;"></div>
+          <div class="skeleton" style="width:100%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:80%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:60%;height:14px;"></div>
+        </div>
+        <div class="review-card skeleton-card">
+          <div style="display:flex; gap:12px; margin-bottom:16px;">
+            <div class="skeleton" style="width:40px;height:40px;border-radius:50%;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="width:50%;height:14px;margin-bottom:8px;"></div>
+              <div class="skeleton" style="width:30%;height:12px;"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="width:80px;height:12px;margin-bottom:16px;"></div>
+          <div class="skeleton" style="width:100%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:90%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:50%;height:14px;"></div>
+        </div>
+        <div class="review-card skeleton-card">
+          <div style="display:flex; gap:12px; margin-bottom:16px;">
+            <div class="skeleton" style="width:40px;height:40px;border-radius:50%;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="width:70%;height:14px;margin-bottom:8px;"></div>
+              <div class="skeleton" style="width:50%;height:12px;"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="width:80px;height:12px;margin-bottom:16px;"></div>
+          <div class="skeleton" style="width:100%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:75%;height:14px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="width:60%;height:14px;"></div>
+        </div>
+      </div>
+
+      <button class="rv-arrow rv-next" id="rv-next" aria-label="Next review">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- Write Review Form -->
+    <div id="review-form-panel" class="review-form-panel" style="display:none;">
+      <div class="review-form-card fade-up">
+        <div class="review-form-title-row">
+          <h3>Share Your Experience</h3>
+          <button class="review-form-close" id="review-form-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <p class="review-form-sub">Your feedback helps future students make the right choice.</p>
+
+        <form id="review-form" novalidate>
+          <div class="rf-row">
+            <div class="rf-field">
+              <label for="rf-name">Full Name <span class="req">*</span></label>
+              <input type="text" id="rf-name" placeholder="e.g. Priya Sharma" required>
+            </div>
+            <div class="rf-field">
+              <label for="rf-course">Course Enrolled</label>
+              <input type="text" id="rf-course" placeholder="e.g. CPC Training">
+            </div>
+          </div>
+
+          <div class="rf-field">
+            <label>Rating <span class="req">*</span></label>
+            <div class="star-picker" id="star-picker">
+              <button type="button" class="star-btn" data-val="1" aria-label="1 star">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+              <button type="button" class="star-btn" data-val="2" aria-label="2 stars">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+              <button type="button" class="star-btn" data-val="3" aria-label="3 stars">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+              <button type="button" class="star-btn" data-val="4" aria-label="4 stars">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+              <button type="button" class="star-btn" data-val="5" aria-label="5 stars">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="rf-field">
+            <label for="rf-text">Your Review <span class="req">*</span></label>
+            <textarea id="rf-text" rows="4" placeholder="Share your experience — what did you learn, how did the trainer help, would you recommend it?..." required></textarea>
+          </div>
+
+          <div id="review-already-done" class="review-notice" style="display:none;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            You have already submitted a review from this device.
+          </div>
+
+          <div id="review-success" class="review-success" style="display:none;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Thank you! Your review has been submitted and is pending approval.
+          </div>
+
+          <button type="submit" class="rf-submit-btn" id="rf-submit">
+            <span class="rf-btn-text">Submit Review</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ========== END REVIEWS SECTION ========== -->
+
+<!-- ========== MAP SECTION ========== -->
+<section class="map-section" id="location-map">
+  <div class="container">
+    <div class="reviews-header fade-up" style="margin-bottom: 24px;">
+      <div class="reviews-header-left">
+        <span class="section-subtitle">OUR LOCATION</span>
+        <h2 class="section-title">Visit Our Institute</h2>
+      </div>
+    </div>
+    <div class="map-container fade-up">
+      <iframe src="https://maps.google.com/maps?q=8/9,%20Varasiti%20Vinayagar%20Koil%20St,%20Suriyammapet,%20Saidapet,%20Chennai,%20Tamil%20Nadu%20600015&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    
+    <div class="map-actions fade-up">
+      <a href="https://share.google/WBC7zE07HUV2nbwYN" target="_blank" rel="noopener" class="map-btn-secondary">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Open in Google Maps
+      </a>
+      <a href="tel:+918925551432" class="map-btn-primary">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.38 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.27a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call for Directions
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ========== END MAP SECTION ========== -->
