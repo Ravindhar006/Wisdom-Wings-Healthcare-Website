@@ -22,6 +22,16 @@ async function loadComponent(componentName, targetId) {
             initDynamicCourses();
         } else if (componentName === 'features') {
             initHomeCourses();
+            // Wire up the courses next-button after component loads
+            setTimeout(() => {
+                const coursesGrid = document.getElementById('home-courses-grid');
+                const coursesNextBtn = document.getElementById('courses-next-btn');
+                if (coursesGrid && coursesNextBtn) {
+                    coursesNextBtn.addEventListener('click', () => {
+                        coursesGrid.scrollBy({ left: 350, behavior: 'smooth' });
+                    });
+                }
+            }, 600);
             initContactForm();
             initFeaturesCarousel();
         } else if (componentName === 'reviews') {
@@ -629,8 +639,8 @@ async function initReviews() {
             return;
         }
 
-        grid.innerHTML = combined.map(rv => `
-            <div class="review-card${rv._pending ? ' review-card--pending' : ''}">
+        grid.innerHTML = combined.map((rv, i) => `
+            <div class="review-card${rv._pending ? ' review-card--pending' : ''}${i === 0 ? ' rv-active' : ''}">
                 ${rv._pending ? '<div class="review-pending-badge">Pending Approval</div>' : ''}
                 
                 <div class="review-header">
@@ -649,6 +659,17 @@ async function initReviews() {
                 <p class="review-text" title="${rv.text}">${rv.text}</p>
             </div>
         `).join('');
+
+        // IntersectionObserver to highlight the most-visible card as rv-active
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
+                    grid.querySelectorAll('.review-card').forEach(c => c.classList.remove('rv-active'));
+                    entry.target.classList.add('rv-active');
+                }
+            });
+        }, { root: grid, threshold: 0.55 });
+        grid.querySelectorAll('.review-card').forEach(card => observer.observe(card));
         
         if (grid._updateArrows) setTimeout(grid._updateArrows, 100);
     }
@@ -720,35 +741,144 @@ async function initReviews() {
             setTimeout(() => { successMsg.style.display = 'none'; }, 6000);
         });
     }
-}
-
-/* Dynamic Courses Fetching Logic */
+}/* Dynamic Courses Fetching Logic for Courses Page Only */
 async function initDynamicCourses() {
     const grid = document.getElementById('dynamic-courses-grid');
     if (!grid) return;
     
-    // Fallback static JSON 
-    const fallbackData = [
-      { id: "cpc-training", title: "CPC Training", category: "Medical Coding", description: "Comprehensive curriculum focusing on physician-based medical coding covering CPT, ICD-10-CM, and HCPCS Level II.", mode: ["Online", "Offline"], duration: "8", topics: ["Anatomy & Physiology", "ICD-10-CM Coding", "CPT Coding", "HCPCS Level II"] },
-      { id: "ed-coding", title: "ED Coding Training", category: "Emergency Dept", description: "Specialized training for emergency department coding guidelines and advanced clinical scenarios.", mode: ["Online"], duration: "6", topics: ["ED E/M Coding", "Trauma Coding", "Procedures"] },
-      { id: "ipdrg-coding", title: "IPDRG Coding", category: "Hospital Billing", description: "Inpatient DRG coding techniques essential for hospital billing and revenue cycle analytics.", mode: ["Offline"], duration: "10", topics: ["DRG Concept", "Inpatient Guidelines", "PCS Coding"] }
+    // Using exactly the 6 courses provided by the user
+    const coursesPageData = [
+      { 
+        id: "basic-coding", 
+        title: "Basic Medical Coding Training", 
+        category: "Beginner Friendly", 
+        description: "Beginner Level Medical Coding Course", 
+        mode: ["Online", "Offline"], 
+        duration: "8-10", 
+        topics: [
+          "Anatomy",
+          "Physiology",
+          "Medical Terminology",
+          "Pathology",
+          "Introduction to ICD-10-CM",
+          "Introduction to CPT",
+          "Course Completion Certificate",
+          "Job Assistance",
+          "Resume Preparation Assistance",
+          "Viva Interview Training"
+        ] 
+      },
+      { 
+        id: "cpc-training", 
+        title: "CPC (Certified Professional Coder) Training", 
+        category: "Certification Focused", 
+        description: "AAPC CPC Certification Preparation", 
+        mode: ["Online", "Offline"], 
+        duration: "10–12", 
+        topics: [
+          "Medical Coding Guidelines",
+          "ICD-10-CM (In-depth)",
+          "CPT (In-depth)",
+          "HCPCS Level II",
+          "Modifiers",
+          "Medical Billing Basics",
+          "Compliance & Ethics",
+          "Practice Questions & Mock Exams",
+          "Chart/Report Reading Skills",
+          "Time Management & Exam Strategies",
+          "Course Completion Certificate",
+          "Job Assistance",
+          "Resume Preparation Assistance",
+          "Viva Interview Training"
+        ] 
+      },
+      { 
+        id: "ed-coding", 
+        title: "ED Coding Training", 
+        category: "CPC Relevant", 
+        description: "Emergency Department Medical Coding", 
+        mode: ["Online", "Offline"], 
+        duration: "4–6", 
+        topics: [
+          "Introduction to Emergency Department Coding",
+          "ED Documentation Guidelines & Compliance",
+          "CPT Coding for Emergency Procedures",
+          "ICD-10-CM Diagnosis Coding for ED",
+          "Real-Time Case Scenario Practice",
+          "E&M Levels for Emergency Visits (99281–99285)",
+          "Critical Care Coding (99291, 99292)",
+          "Common ED Procedures & Modifiers",
+          "HCPCS Level II Codes in ED",
+          "Auditing & Compliance in ED Coding"
+        ] 
+      },
+      { 
+        id: "em-coding", 
+        title: "E&M Coding Training", 
+        category: "CPC Core", 
+        description: "Evaluation & Management Coding", 
+        mode: ["Online", "Offline"], 
+        duration: "4–6", 
+        topics: [
+          "E&M Coding Fundamentals & History",
+          "Outpatient Visit Coding (New vs. Established)",
+          "2021 E&M Code Revisions & Updates",
+          "Medical Decision Making (MDM) Levels",
+          "Time-Based Coding Criteria",
+          "Chart Analysis & Documentation Review",
+          "Office Visit Codes (99202–99215)",
+          "Preventive Medicine Services",
+          "Consultation Codes & When to Use Them",
+          "Modifier Usage in E&M Coding"
+        ] 
+      },
+      { 
+        id: "surgery-coding", 
+        title: "Surgery Coding Training", 
+        category: "CPC Specialist", 
+        description: "Surgical Procedure Coding", 
+        mode: ["Online", "Offline"], 
+        duration: "6–8", 
+        topics: [
+          "Introduction to CPT Surgical Sections",
+          "Reading & Interpreting Operative Reports",
+          "Surgical Global Package Concept",
+          "Modifiers: 22, 51, 59, 62, 80 & More",
+          "Multiple Procedure Coding Rules",
+          "Integumentary, Musculoskeletal, Respiratory Systems",
+          "Cardiovascular & Digestive System Coding",
+          "Laparoscopic vs. Open Procedure Coding",
+          "Bundling & Unbundling (CCI Edits)",
+          "Hands-on Operative Report Practice"
+        ] 
+      },
+      { 
+        id: "ipdrg-coding", 
+        title: "IPDRG Coding Training", 
+        category: "Advanced Level", 
+        description: "Inpatient / DRG Coding", 
+        mode: ["Online", "Offline"], 
+        duration: "6–8", 
+        topics: [
+          "Inpatient Coding Guidelines (UHDDS)",
+          "Principal Diagnosis vs. Secondary Diagnosis",
+          "DRG Grouping Methodology",
+          "MS-DRG System & Weight Calculation",
+          "ICD-10-PCS Procedure Coding System",
+          "CC and MCC Capture Strategies",
+          "Present on Admission (POA) Indicators",
+          "Case Mix Index (CMI) Concepts",
+          "Coding Queries & Clinical Documentation",
+          "Real Inpatient Chart Coding Practice"
+        ] 
+      }
     ];
 
-    const cloudinaryBase = 'https://res.cloudinary.com/dtdt3aw3s/raw/upload';
+    // Clear skeletons
+    grid.innerHTML = '';
     
-    try {
-        // Use URL-path versioning instead of query arguments to ensure we bypass CDN caches perfectly
-        const response = await fetch(`${cloudinaryBase}/v${new Date().getTime()}/courses.json`);
-        let courses = await response.json();
-
-        // Clear skeletons
-        grid.innerHTML = '';
-        renderCourses(grid, courses);
-    } catch (error) {
-        console.warn('Cloudinary JSON not found or blocked. Booting from fallback array...', error);
-        grid.innerHTML = '';
-        renderCourses(grid, fallbackData);
-    }
+    // Render the new courses array
+    renderCourses(grid, coursesPageData);
 }
 
 /* Home Page — Preview first 3 courses */
@@ -757,10 +887,58 @@ async function initHomeCourses() {
     if (!grid) return;
 
     const fallbackData = [
-      { title: "CPC Training", category: "Medical Coding", description: "Comprehensive curriculum focusing on physician-based medical coding covering CPT, ICD-10-CM, and HCPCS Level II.", mode: ["Online", "Offline"], duration: "8", topics: ["Anatomy & Physiology", "ICD-10-CM Coding", "CPT Coding", "HCPCS Level II"] },
-      { title: "ED Coding Training", category: "Emergency Dept", description: "Specialized training for emergency department coding guidelines and advanced clinical scenarios.", mode: ["Online"], duration: "6", topics: ["ED E/M Coding", "Trauma Coding", "Procedures"] },
-      { title: "IPDRG Coding", category: "Hospital Billing", description: "Inpatient DRG coding techniques essential for hospital billing and revenue cycle analytics.", mode: ["Offline"], duration: "10", topics: ["DRG Concept", "Inpatient Guidelines", "PCS Coding"] },
-      { title: "COC Training", category: "Hospital Outpatient", description: "Certified Outpatient Coder training for hospital outpatient facilities and ambulatory surgery centers.", mode: ["Online"], duration: "8", topics: ["OPPS Payment System", "APC Guidelines", "Outpatient Coding"] }
+      { 
+        title: "ED Coding Training", 
+        category: "Emergency department", 
+        description: "Master emergency department medical coding with real documentation examples, CPT coding rules, and challenging case scenarios.", 
+        mode: ["Online", "Offline"], 
+        duration: "8", 
+        topics: [
+          "ED Documentation & Guidelines",
+          "CPT Coding for Emergency",
+          "Real-time Case Scenarios",
+          "ICD-10-CM Diagnosis Coding"
+        ] 
+      },
+      { 
+        title: "E&M Coding Training", 
+        category: "Evaluation & Management", 
+        description: "In-depth training on outpatient visit coding, medical decision-making levels, and comprehensive chart analysis skills.", 
+        mode: ["Online", "Offline"], 
+        duration: "6", 
+        topics: [
+          "Outpatient Visit Coding",
+          "MDM Levels & Guidelines",
+          "Chart Analysis Techniques",
+          "2021 E&M Code Updates"
+        ] 
+      },
+      { 
+        title: "Surgery Coding Training", 
+        category: "Surgical Procedure", 
+        description: "Learn to accurately code complex surgical procedures using CPT codes, modifiers, and operative report analysis.", 
+        mode: ["Online", "Offline"], 
+        duration: "10", 
+        topics: [
+          "Surgical CPT Code Mastery",
+          "Modifiers & Global Period",
+          "Operative Report Coding",
+          "Bundling & Unbundling Rules"
+        ] 
+      },
+      { 
+        title: "IPDRG Coding Training", 
+        category: "Inpatient / DRG", 
+        description: "Specialized inpatient coding training covering DRG grouping methodology, ICD-10-PCS procedure codes, and MS-DRG optimization.", 
+        mode: ["Online", "Offline"], 
+        duration: "10", 
+        topics: [
+          "Inpatient Coding Principles",
+          "DRG Grouping & MS-DRG",
+          "ICD-10-PCS Procedure Codes",
+          "CC/MCC Capture Strategies"
+        ] 
+      }
     ];
 
     const cloudinaryBase = 'https://res.cloudinary.com/dtdt3aw3s/raw/upload';
@@ -768,6 +946,47 @@ async function initHomeCourses() {
     try {
         const response = await fetch(`${cloudinaryBase}/v${new Date().getTime()}/courses.json`);
         let courses = await response.json();
+
+        // Inject the custom ED Coding Training content into the first course card
+        if (courses && courses.length > 0) {
+            courses[0] = {
+                title: "ED Coding Training",
+                category: "Emergency department",
+                description: "Master emergency department medical coding with real documentation examples, CPT coding rules, and challenging case scenarios.",
+                mode: courses[0].mode || ["Online", "Offline"],
+                duration: courses[0].duration || "8",
+                topics: [
+                    "ED Documentation & Guidelines",
+                    "CPT Coding for Emergency",
+                    "Real-time Case Scenarios",
+                    "ICD-10-CM Diagnosis Coding"
+                ]
+            };
+        }
+
+        // Inject the custom E&M Coding Training content into the E&M course card
+        if (courses && courses.length > 0) {
+            let emIndex = courses.findIndex(c => c.title && c.title.includes("E&M"));
+            if (emIndex === -1 && courses.length > 3) {
+                emIndex = 3;
+            }
+            if (emIndex !== -1) {
+                courses[emIndex] = {
+                    title: "E&M Coding Training",
+                    category: "Evaluation & Management",
+                    description: "In-depth training on outpatient visit coding, medical decision-making levels, and comprehensive chart analysis skills.",
+                    mode: courses[emIndex].mode || ["Online", "Offline"],
+                    duration: courses[emIndex].duration || "6",
+                    topics: [
+                        "Outpatient Visit Coding",
+                        "MDM Levels & Guidelines",
+                        "Chart Analysis Techniques",
+                        "2021 E&M Code Updates"
+                    ]
+                };
+            }
+        }
+
         grid.innerHTML = '';
         
         // If less than 4 courses, append from fallback to ensure 4 cards
@@ -783,6 +1002,47 @@ async function initHomeCourses() {
                     courses.push(fallbackData[i % fallbackData.length]);
                 }
             }
+        }
+        
+        // Move the E&M course card to the 2nd place (index 1)
+        const emIndex = courses.findIndex(c => c.title && c.title.includes("E&M"));
+        if (emIndex !== -1 && emIndex !== 1) {
+            const emCourse = courses.splice(emIndex, 1)[0];
+            courses.splice(1, 0, emCourse);
+        }
+
+        // Overwrite the 3rd card (index 2) with Surgery Coding Training
+        if (courses && courses.length > 2) {
+            courses[2] = {
+                title: "Surgery Coding Training",
+                category: "Surgical Procedure",
+                description: "Learn to accurately code complex surgical procedures using CPT codes, modifiers, and operative report analysis.",
+                mode: courses[2].mode || ["Online", "Offline"],
+                duration: courses[2].duration || "10",
+                topics: [
+                    "Surgical CPT Code Mastery",
+                    "Modifiers & Global Period",
+                    "Operative Report Coding",
+                    "Bundling & Unbundling Rules"
+                ]
+            };
+        }
+
+        // Overwrite the 4th card (index 3) with IPDRG Coding Training
+        if (courses && courses.length > 3) {
+            courses[3] = {
+                title: "IPDRG Coding Training",
+                category: "Inpatient / DRG",
+                description: "Specialized inpatient coding training covering DRG grouping methodology, ICD-10-PCS procedure codes, and MS-DRG optimization.",
+                mode: courses[3].mode || ["Online", "Offline"],
+                duration: courses[3].duration || "10",
+                topics: [
+                    "Inpatient Coding Principles",
+                    "DRG Grouping & MS-DRG",
+                    "ICD-10-PCS Procedure Codes",
+                    "CC/MCC Capture Strategies"
+                ]
+            };
         }
         
         // Only show first 4
@@ -811,9 +1071,8 @@ function renderCourses(grid, coursesArray, isPreview = false) {
         const modeStr = (c.mode && Array.isArray(c.mode) && c.mode.length > 0) ? c.mode.join(' / ') : 'Flexible';
         
         // Topics parsing
-        const topicsList = (c.topics || []).slice(0, 3).map(t => `<li>${t}</li>`).join('');
-        const remaining = (c.topics && c.topics.length > 3) ? `<li class="more-topics">+${c.topics.length - 3} more modules</li>` : '';
-        const topicsHtml = topicsList ? `<ul class="course-topics-list">${topicsList}${remaining}</ul>` : '';
+        let topicsList = (c.topics || []).map(t => `<li>${t}</li>`).join('');
+        const topicsHtml = topicsList ? `<ul class="course-topics-list">${topicsList}</ul>` : '';
 
         // Button — preview cards navigate to courses page, full-page cards open modal
         const actionBtn = isPreview
