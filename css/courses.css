@@ -225,9 +225,8 @@
 }
 
 .course-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(15, 28, 48, 0.1);
-  border-color: rgba(32, 202, 182, 0.3);
+  box-shadow: 0 16px 36px rgba(15, 28, 48, 0.08);
+  border-color: rgba(32, 202, 182, 0.4);
 }
 
 .course-card-image {

@@ -93,6 +93,12 @@
   flex-direction: column;
   height: 420px; /* Fixed height */
   padding: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.fc-card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 0 0 2px rgba(30, 202, 181, 0.25);
 }
 
 .fc-card-img {
@@ -104,6 +110,11 @@
   object-fit: cover;
   display: block;
   z-index: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fc-card:hover .fc-card-img {
+  transform: scale(1.05);
 }
 
 .fc-card-content {
@@ -119,6 +130,11 @@
   justify-content: space-between;
   gap: 12px;
   min-height: 110px;
+  transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fc-card:hover .fc-card-content {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .fc-card-content h3 {
@@ -164,7 +180,6 @@
 .fc-arrow:hover {
   border-color: var(--primary);
   background: #F8FAFC;
-  transform: translateY(-1px);
 }
 
 .fc-dots {
@@ -956,8 +971,7 @@
 
 .btn-navy:hover {
   background: #0f172a;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 28, 48, 0.2);
+  box-shadow: 0 6px 16px rgba(15, 28, 48, 0.25);
 }
 
 .btn-outline {

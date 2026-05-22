@@ -539,8 +539,7 @@
 }
 
 .advantage-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(15,28,48,0.08);
+    box-shadow: 0 16px 32px rgba(15,28,48,0.08), 0 0 0 2px rgba(32,202,182,0.2);
     border-color: rgba(32,202,182,0.3);
     background: #ffffff;
 }

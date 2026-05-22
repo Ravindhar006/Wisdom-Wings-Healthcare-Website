@@ -31,9 +31,8 @@
 }
 
 .blog-preview-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(30, 202, 181, 0.3);
-    box-shadow: 0 20px 40px rgba(15, 28, 48, 0.05);
+    border-color: rgba(30, 202, 181, 0.4);
+    box-shadow: 0 16px 32px rgba(15, 28, 48, 0.06);
 }
 
 .blog-preview-img-wrap {

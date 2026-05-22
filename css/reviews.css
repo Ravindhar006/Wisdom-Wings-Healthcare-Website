@@ -54,8 +54,7 @@
 
 .write-review-btn:hover {
     background: #1a2f4e;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(15, 28, 48, 0.2);
+    box-shadow: 0 6px 16px rgba(15, 28, 48, 0.25);
 }
 
 /* ---- Reviews Carousel ---- */
@@ -134,8 +133,7 @@
 }
 
 .review-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(15, 28, 48, 0.07);
+    box-shadow: 0 12px 28px rgba(15, 28, 48, 0.07), 0 0 0 2px rgba(32, 202, 182, 0.15);
     border-color: rgba(32, 202, 182, 0.25);
     background: #ffffff;
 }
@@ -432,8 +430,7 @@
 
 .rf-submit-btn:hover:not(:disabled) {
     background: #1a2f4e;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(15, 28, 48, 0.2);
+    box-shadow: 0 6px 16px rgba(15, 28, 48, 0.25);
 }
 
 .rf-submit-btn:disabled {
@@ -503,8 +500,7 @@
 
 .map-section .map-btn-primary:hover {
     background: #1d4ed8 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
 }
 
 .map-section .map-btn-secondary {
@@ -525,7 +521,6 @@
 
 .map-section .map-btn-secondary:hover {
     background: #EFF6FF !important;
-    transform: translateY(-2px) !important;
 }
 
 @media (max-width: 480px) {

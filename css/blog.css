@@ -313,9 +313,8 @@
 }
 
 .blog-card:not(.blog-card-skeleton):hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 36px rgba(15, 28, 48, 0.1);
-    border-color: rgba(30, 202, 181, 0.35);
+    box-shadow: 0 16px 36px rgba(15, 28, 48, 0.08);
+    border-color: rgba(30, 202, 181, 0.4);
 }
 
 .blog-card-skeleton {

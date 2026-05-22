@@ -388,11 +388,16 @@ function initContactForm() {
             return;
         }
 
-        // Animate button
+        // Open WhatsApp immediately upon user click to bypass browser pop-up blockers
+        const message = `Hi Wisdom Wings Healthcare,\n\nI would like to request a callback. Here are my details:\n\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n✉️ *Email:* ${email}`;
+        const whatsappUrl = `https://wa.me/918925551432?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+
+        // Animate button and show success state
         btn.disabled = true;
         btn.textContent = 'Sending...';
 
-        // Simulate async send (replace with real API / EmailJS / Formspree as needed)
+        // Reset form and UI
         setTimeout(() => {
             form.reset();
             btn.disabled = false;
@@ -1085,12 +1090,23 @@ function renderCourses(grid, coursesArray, isPreview = false) {
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                </button>`;
 
-        const courseImages = ['./images/course_1.png', './images/course_2.png', './images/course_3.png'];
-        const randomImg = courseImages[index % courseImages.length]; // Use index for stability or Math.random()
+        let courseImg = './images/course_1.png';
+        if (c.title && c.title.toLowerCase().includes("ipdrg")) {
+            courseImg = './images/course_ipdrg.png';
+        } else if (c.title && c.title.toLowerCase().includes("surgery")) {
+            courseImg = './images/course_surgery.jpg';
+        } else if (c.title && (c.title.toLowerCase().includes("e&m") || c.title.toLowerCase().includes("evaluation"))) {
+            courseImg = './images/course_em.jpg';
+        } else if (c.title && c.title.toLowerCase().includes("ed coding")) {
+            courseImg = './images/course_1.png';
+        } else {
+            const courseImages = ['./images/course_1.png', './images/course_2.png', './images/course_3.png'];
+            courseImg = courseImages[index % courseImages.length];
+        }
 
         card.innerHTML = `
             <div class="course-card-image">
-                <img src="${randomImg}" alt="${c.title}">
+                <img src="${courseImg}" alt="${c.title}">
             </div>
             <div class="course-content">
                 <div class="course-header">
@@ -1182,6 +1198,16 @@ async function openCourseModal(courseIndex) {
     }
     
     // 3. Show Modal
+    const enrollBtn = document.getElementById('modal-enroll-btn');
+    if (enrollBtn) {
+        const modeStr = (c.mode && Array.isArray(c.mode) && c.mode.length > 0) ? c.mode.join(' / ') : 'Flexible';
+        const durationStr = c.duration ? c.duration + ' Weeks' : 'Flexible';
+        const courseMessage = `Hi Wisdom Wings Healthcare,\n\nI am interested in enrolling in the following course:\n\n📚 *Course:* ${c.title}\n🏷️ *Category:* ${c.category || 'Medical Coding'}\n⏳ *Duration:* ${durationStr}\n🌐 *Mode:* ${modeStr}\n\nPlease provide me with more information regarding enrollment and fees.`;
+        
+        enrollBtn.href = `https://wa.me/918925551432?text=${encodeURIComponent(courseMessage)}`;
+        enrollBtn.target = "_blank";
+    }
+
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }

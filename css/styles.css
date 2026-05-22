@@ -108,8 +108,8 @@ body {
 }
 
 .btn-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 117, 24, 0.5);
+  background: #f95f0c; /* slightly darker/brighter orange */
+  box-shadow: 0 6px 20px rgba(255, 117, 24, 0.6);
 }
 
 .text-teal {
