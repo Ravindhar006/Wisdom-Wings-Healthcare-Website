@@ -2,6 +2,7 @@
   position: fixed;
   top: 10px;
   left: 0;
+  right: 0;
   width: 100%;
   background: transparent;
   z-index: 1000;
@@ -170,6 +171,7 @@
     position: absolute;
     top: 100%;
     left: 0;
+    right: 0;
     width: 100%;
     background: #ffffff; /* Solid white syncing to theme */
     box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* Softer theme shadow */

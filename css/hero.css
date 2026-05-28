@@ -3,7 +3,7 @@
   overflow: hidden;
   background-color: #f8fafc;
   padding-top: 100px;
-  padding-bottom: 0px;
+  padding-bottom: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -300,8 +300,10 @@
 
   .hero::before {
     width: 100%;
-    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.8) 60%);
-    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.8) 60%);
+    background-position: center center;
+    opacity: 0.15; /* Make background very faint so text is clearly visible */
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .hero-visual {
@@ -324,10 +326,33 @@
   }
 
   .hero-stats-pill {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
     width: 100%;
+    overflow-x: auto;
+    padding: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar for clean look */
+  }
+  .hero-stats-pill::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    min-width: 120px;
+  }
+
+  .stat-text h4 {
+    font-size: 1.4rem;
+  }
+  
+  .stat-text p {
+    font-size: 0.75rem;
   }
 
   .hero-actions {
