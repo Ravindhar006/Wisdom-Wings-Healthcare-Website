@@ -1052,6 +1052,6 @@
 /* Course Card Image Styles */
 .course-card { overflow: hidden; display: flex; flex-direction: column; }
 .course-card-image { width: 100%; height: 200px; overflow: hidden; }
-.course-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.course-card:hover .course-card-image img { transform: scale(1.1); }
+.course-card-image img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: transform 0.5s ease; }
+.course-card:hover .course-card-image img { transform: scale(1.25); }
 

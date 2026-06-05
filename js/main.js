@@ -56,6 +56,49 @@ function stripHtml(html) {
 }
 
 /* ============================================
+   COUNTERS ANIMATION
+   ============================================ */
+function initCounters() {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 50;
+
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    const count = +(counter.innerText.replace(/[^0-9]/g, ''));
+                    
+                    const inc = Math.max(1, Math.ceil(target / speed));
+
+                    if (count < target) {
+                        counter.innerText = (count + inc) + suffix;
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target + suffix;
+                    }
+                };
+                
+                counter.innerText = '0' + (counter.getAttribute('data-suffix') || '');
+                updateCount();
+                
+                observer.unobserve(counter);
+            }
+        });
+    }, observerOptions);
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
+/* ============================================
    FEATURES CAROUSEL
    ============================================ */
 function initFeaturesCarousel() {
@@ -842,7 +885,7 @@ async function initDynamicCourses() {
             category: "Certification Focused",
             description: "AAPC CPC Certification Preparation",
             mode: ["Online", "Offline"],
-            duration: "10â€“12",
+            duration: "10-12",
             topics: [
                 "Medical Coding Guidelines",
                 "ICD-10-CM (In-depth)",
@@ -866,14 +909,14 @@ async function initDynamicCourses() {
             category: "CPC Relevant",
             description: "Emergency Department Medical Coding",
             mode: ["Online", "Offline"],
-            duration: "4â€“6",
+            duration: "4-6",
             topics: [
                 "Introduction to Emergency Department Coding",
                 "ED Documentation Guidelines & Compliance",
                 "CPT Coding for Emergency Procedures",
                 "ICD-10-CM Diagnosis Coding for ED",
                 "Real-Time Case Scenario Practice",
-                "E&M Levels for Emergency Visits (99281â€“99285)",
+                "E&M Levels for Emergency Visits (99281-99285)",
                 "Critical Care Coding (99291, 99292)",
                 "Common ED Procedures & Modifiers",
                 "HCPCS Level II Codes in ED",
@@ -886,7 +929,7 @@ async function initDynamicCourses() {
             category: "CPC Core",
             description: "Evaluation & Management Coding",
             mode: ["Online", "Offline"],
-            duration: "4â€“6",
+            duration: "4-6",
             topics: [
                 "E&M Coding Fundamentals & History",
                 "Outpatient Visit Coding (New vs. Established)",
@@ -894,7 +937,7 @@ async function initDynamicCourses() {
                 "Medical Decision Making (MDM) Levels",
                 "Time-Based Coding Criteria",
                 "Chart Analysis & Documentation Review",
-                "Office Visit Codes (99202â€“99215)",
+                "Office Visit Codes (99202-99215)",
                 "Preventive Medicine Services",
                 "Consultation Codes & When to Use Them",
                 "Modifier Usage in E&M Coding"
@@ -906,7 +949,7 @@ async function initDynamicCourses() {
             category: "CPC Specialist",
             description: "Surgical Procedure Coding",
             mode: ["Online", "Offline"],
-            duration: "6â€“8",
+            duration: "6-8",
             topics: [
                 "Introduction to CPT Surgical Sections",
                 "Reading & Interpreting Operative Reports",
@@ -926,7 +969,7 @@ async function initDynamicCourses() {
             category: "Advanced Level",
             description: "Inpatient / DRG Coding",
             mode: ["Online", "Offline"],
-            duration: "6â€“8",
+            duration: "6-8",
             topics: [
                 "Inpatient Coding Guidelines (UHDDS)",
                 "Principal Diagnosis vs. Secondary Diagnosis",

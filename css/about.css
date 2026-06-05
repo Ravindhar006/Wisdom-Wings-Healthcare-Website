@@ -128,15 +128,27 @@
 .identity-logo-block {
     display: flex;
     justify-content: center;
+    width: 100%;
+}
+
+.identity-logo-wrapper {
+    width: 100%;
+    height: 190px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure scaled image doesn't break rounded corners */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .identity-logo {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    border-radius: 16px;
-    background: rgba(255,255,255,0.08);
-    padding: 8px;
+    transform: scale(1.5);
 }
 
 .identity-name {
